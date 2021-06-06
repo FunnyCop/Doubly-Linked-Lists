@@ -96,8 +96,31 @@ class xList: # create List class
                 self.index += 1 # index++
                 return self
 
+    def xRemove(self, index):
+        if index > self.index - 1:  # if given index is larger than the index of the List's last node
+            print(f"Index {index} does not exist") # print error
+            return self
+
+        elif self.index == 0: # if List is empty
+            print(f"List is empty") # print error
+
+        else: # if given index is not larger that the length of List and List is not empty
+            runner = self.head # runner = reference_to(self.head)
+
+            for x in range(index): # from 0 to index - 1
+                runner = runner.next # runner = reference_to(runner.next)
+
+            if runner.last != None: # if index Node is not the first Node
+                runner.last.next = runner.next # index Node.last.next = index Node.next
+
+            if runner.next != None: # if index Node is not the last Node
+                runner.next.last = runner.last # index Node.next.last = index Node.last
+
+            del runner # delete object instance
+            return self
+
 arr = xList()
-arr.xAppend(1).xAppend(2).xAppend(3).xAppend(4).xAppend(10, 2)
+arr.xAppend(1).xAppend(2).xAppend(3).xAppend(4).xAppend(10, 2).xRemove(1)
 runner = arr.head
 while runner.next != None:
     print(runner.value)
